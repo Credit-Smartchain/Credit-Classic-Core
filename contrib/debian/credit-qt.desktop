@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=0.17.6
+Name=Credit Core
+Comment=Connect to the Credit P2P Network
+Exec=credit-qt %u
+Terminal=false
+Type=Application
+Icon=credit128
+MimeType=x-scheme-handler/credit;
+Categories=Network;
+StartupWMClass=Credit-qt
+Name[en_US]=credit-qt

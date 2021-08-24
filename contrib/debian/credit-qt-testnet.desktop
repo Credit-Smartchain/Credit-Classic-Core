@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=0.17.6
+Name=Credit Core Testnet
+Comment=Connect to the Credit P2P Network Testnet
+Exec=credit-qt -testnet %u
+Terminal=false
+Type=Application
+Icon=credittestnet128
+MimeType=x-scheme-handler/credit;
+Categories=Network;
+StartupWMClass=Credit-qt-testnet
+Name[en_US]=credit-qt-testnet
