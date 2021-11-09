@@ -26,7 +26,7 @@ Credit Core currently implements the following:
 * Staking and creating blocks for the Credit network
 * Creating and interacting with smart contracts
 * Running a full node for distributing the blockchain to other users
-* +ACI-Prune+ACI- mode, which minimizes disk usage
+* "Prune" mode, which minimizes disk usage
 * Regtest mode, which enables developers to very quickly build their own private Credit network for Dapp testing
 * Testnet mode, using the public Credit Rasputin, with faucet available
 * Compatibility with the Bitcoin Core set of RPC commands and APIs
@@ -81,7 +81,7 @@ Here is a brief description for compiling Credit on CentOS, for more details ple
     cd boost
     git checkout boost-1.66.0
     git submodule update --init --recursive
-    ./bootstrap.sh --prefix+AD0-/usr --libdir+AD0-/usr/lib64
+    ./bootstrap.sh --prefix=/usr --libdir=/usr/lib64
     ./b2 headers
     sudo ./b2 -j4 install
     
@@ -163,7 +163,7 @@ and useful hints for developers can be found in [doc/developer-notes.md](doc/dev
 Testing
 -------
 
-Testing and code review is the bottleneck for development+ADs- we get more pull
+Testing and code review is the bottleneck for development; we get more pull
 requests than we can review and test on short notice. Please be patient and help out by testing
 other people's pull requests, and remember this is a security-critical project where any mistake might cost people
 lots of money.

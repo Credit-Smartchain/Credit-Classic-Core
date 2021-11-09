@@ -1,5 +1,5 @@
 UNIX BUILD NOTES
-+AD0APQA9AD0APQA9AD0APQA9AD0APQA9AD0APQA9AD0APQA9AD0APQ-
+====================
 Some notes on how to build Credit Core in Unix.
 
 (For BSD specific instructions, see `build-*bsd.md` in this directory.)
@@ -9,20 +9,20 @@ Note
 Always use absolute paths to configure and compile Credit Core and the dependencies.
 For example, when specifying the path of the dependency:
 
-	../dist/configure --enable-cxx --disable-shared --with-pic --prefix+AD0AJA-BDB_PREFIX
+	../dist/configure --enable-cxx --disable-shared --with-pic --prefix=$BDB_PREFIX
 
-Here BDB_PREFIX must be an absolute path - it is defined using +ACQ-(pwd) which ensures
+Here BDB_PREFIX must be an absolute path - it is defined using $(pwd) which ensures
 the usage of the absolute path.
 
 To Build
 ---------------------
 
-+AGAAYABg-bash
+```bash
 ./autogen.sh
 ./configure
 make
 make install # optional
-+AGAAYABg-
+```
 
 This will build credit-qt as well, if the dependencies are met.
 
@@ -31,22 +31,22 @@ Dependencies
 
 These dependencies are required:
 
- Library     +AHw- Purpose          +AHw- Description
- ------------+AHw-------------------+AHw-----------------------
- libboost    +AHw- Utility          +AHw- Library for threading, data structures, etc
- libevent    +AHw- Networking       +AHw- OS independent asynchronous networking
- libgmp      +AHw- Math             +AHw- The GNU Multiple Precision Arithmetic Library
+ Library     | Purpose          | Description
+ ------------|------------------|----------------------
+ libboost    | Utility          | Library for threading, data structures, etc
+ libevent    | Networking       | OS independent asynchronous networking
+ libgmp      | Math             | The GNU Multiple Precision Arithmetic Library
 
 Optional dependencies:
 
- Library     +AHw- Purpose          +AHw- Description
- ------------+AHw-------------------+AHw-----------------------
- miniupnpc   +AHw- UPnP Support     +AHw- Firewall-jumping support
- libdb4.8    +AHw- Berkeley DB      +AHw- Wallet storage (only needed when wallet enabled)
- qt          +AHw- GUI              +AHw- GUI toolkit (only needed when GUI enabled)
- libqrencode +AHw- QR codes in GUI  +AHw- Optional for generating QR codes (only needed when GUI enabled)
- univalue    +AHw- Utility          +AHw- JSON parsing and encoding (bundled version will be used unless --with-system-univalue passed to configure)
- libzmq3     +AHw- ZMQ notification +AHw- Optional, allows generating ZMQ notifications (requires ZMQ version +AD4APQ- 4.0.0)
+ Library     | Purpose          | Description
+ ------------|------------------|----------------------
+ miniupnpc   | UPnP Support     | Firewall-jumping support
+ libdb4.8    | Berkeley DB      | Wallet storage (only needed when wallet enabled)
+ qt          | GUI              | GUI toolkit (only needed when GUI enabled)
+ libqrencode | QR codes in GUI  | Optional for generating QR codes (only needed when GUI enabled)
+ univalue    | Utility          | JSON parsing and encoding (bundled version will be used unless --with-system-univalue passed to configure)
+ libzmq3     | ZMQ notification | Optional, allows generating ZMQ notifications (requires ZMQ version >= 4.0.0)
 
 For the versions used, see [dependencies.md](dependencies.md)
 
@@ -58,20 +58,20 @@ memory available when compiling Credit Core. On systems with less, gcc can be
 tuned to conserve memory with additional CXXFLAGS:
 
 
-    ./configure CXXFLAGS+AD0AIg---param ggc-min-expand+AD0-1 --param ggc-min-heapsize+AD0-32768+ACI-
+    ./configure CXXFLAGS="--param ggc-min-expand=1 --param ggc-min-heapsize=32768"
 
 Alternatively, or in addition, debugging information can be skipped for compilation. The default compile flags are
 `-g -O2`, and can be changed with:
 
-    ./configure CXXFLAGS+AD0AIg--O2+ACI-
+    ./configure CXXFLAGS="-O2"
 
 Finally, clang (often less resource hungry) can be used instead of gcc, which is used by default:
 
-    ./configure CXX+AD0-clang CC+AD0-clang
+    ./configure CXX=clang CC=clang
 
-+ACMAIw- Linux Distribution Specific Instructions
+## Linux Distribution Specific Instructions
 
-### Ubuntu +ACY- Debian
+### Ubuntu & Debian
 
 #### Dependency Build Instructions
 
@@ -92,7 +92,7 @@ pass `--with-incompatible-bdb` to configure.
 
 Otherwise, you can build from self-compiled `depends` (see above).
 
-To build Credit Core without wallet, see +AFsAKg-Disable-wallet mode+ACoAXQ-(/doc/build-unix.md#disable-wallet-mode)
+To build Credit Core without wallet, see [*Disable-wallet mode*](/doc/build-unix.md#disable-wallet-mode)
 
 
 Optional (see `--with-miniupnpc` and `--enable-upnp-default`):
@@ -161,8 +161,8 @@ To build with Qt 5 (recommended) you need the following:
 
 Notes
 -----
-The release is built with GCC and then +ACI-strip creditd+ACI- to strip the debug
-symbols, which reduces the executable size by about 90+ACU-.
+The release is built with GCC and then "strip creditd" to strip the debug
+symbols, which reduces the executable size by about 90%.
 
 
 miniupnpc
@@ -183,13 +183,13 @@ It is recommended to use Berkeley DB 4.8. If you have to build it yourself,
 you can use [the installation script included in contrib/](/contrib/install_db4.sh)
 like so:
 
-+AGAAYABg-shell
+```shell
 ./contrib/install_db4.sh `pwd`
-+AGAAYABg-
+```
 
 from the root of the repository.
 
-+ACoAKg-Note+ACoAKg-: You only need Berkeley DB if the wallet is enabled (see +AFsAKg-Disable-wallet mode+ACoAXQ-(/doc/build-unix.md#disable-wallet-mode)).
+**Note**: You only need Berkeley DB if the wallet is enabled (see [*Disable-wallet mode*](/doc/build-unix.md#disable-wallet-mode)).
 
 Boost
 -----
@@ -220,7 +220,7 @@ Hardening enables the following features:
     randomly located as well.
 
     On an AMD64 processor where a library was not compiled with -fPIC, this will cause an error
-    such as: +ACI-relocation R_X86_64_32 against `......' can not be used when making a shared object+ADsAIg-
+    such as: "relocation R_X86_64_32 against `......' can not be used when making a shared object;"
 
     To test that you have built PIE executable, install scanelf, part of paxutils, and use:
 
@@ -297,10 +297,10 @@ Then, install the toolchain and curl:
 To build executables for ARM:
 
     cd depends
-    make HOST+AD0-arm-linux-gnueabihf NO_QT+AD0-1
+    make HOST=arm-linux-gnueabihf NO_QT=1
     cd ..
     ./autogen.sh
-    ./configure --prefix+AD0AJA-PWD/depends/arm-linux-gnueabihf --enable-glibc-back-compat --enable-reduce-exports LDFLAGS+AD0--static-libstdc
+    ./configure --prefix=$PWD/depends/arm-linux-gnueabihf --enable-glibc-back-compat --enable-reduce-exports LDFLAGS=-static-libstdc
     make
 
 
